@@ -3,6 +3,9 @@
   "version": "8.1.0",
   "description": "Encode and parse data in the Concise Binary Object Representation (CBOR) data format (RFC8949).",
   "main": "./lib/cbor.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/hildjj/node-cbor.git",
