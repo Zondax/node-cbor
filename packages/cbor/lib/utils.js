@@ -4,6 +4,7 @@ const {Buffer} = require('buffer')
 const NoFilter = require('nofilter')
 const stream = require('stream')
 const constants = require('./constants')
+const bigInteger = require('./bigint')
 const {NUMBYTES, SHIFT32, BI, SYMS} = constants
 const MAX_SAFE_HIGH = 0x1fffff
 
@@ -59,7 +60,7 @@ exports.parseCBORint = function parseCBORint(ai, buf) {
       const f = buf.readUInt32BE(0)
       const g = buf.readUInt32BE(4)
       if (f > MAX_SAFE_HIGH) {
-        return (BigInt(f) * BI.SHIFT32) + BigInt(g)
+        return bigInteger(f).multiply(BI.SHIFT32).add(bigInteger(g))
       }
       return (f * SHIFT32) + g
     }
@@ -197,7 +198,7 @@ exports.arrayEqual = function arrayEqual(a, b) {
 }
 
 exports.bufferToBigInt = function bufferToBigInt(buf) {
-  return BigInt(`0x${buf.toString('hex')}`)
+  return bigInteger(`0x${buf.toString('hex')}`)
 }
 
 exports.cborValueToString = function cborValueToString(val, float_bytes = -1) {
