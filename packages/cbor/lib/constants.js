@@ -1,4 +1,5 @@
 'use strict'
+const bigInteger = require('./bigint')
 
 /**
  * @enum {number}
@@ -70,10 +71,10 @@ exports.SYMS = {
 exports.SHIFT32 = 0x100000000
 
 exports.BI = {
-  MINUS_ONE: BigInt(-1),
-  NEG_MAX: BigInt(-1) - BigInt(Number.MAX_SAFE_INTEGER),
-  MAXINT32: BigInt('0xffffffff'),
-  MAXINT64: BigInt('0xffffffffffffffff'),
-  SHIFT32: BigInt(exports.SHIFT32),
+  MINUS_ONE: bigInteger(-1),
+  NEG_MAX: bigInteger(-1).minus(bigInteger(Number.MAX_SAFE_INTEGER)),
+  MAXINT32: bigInteger('0xffffffff'),
+  MAXINT64: bigInteger('0xffffffffffffffff'),
+  SHIFT32: bigInteger(exports.SHIFT32),
 }
 
