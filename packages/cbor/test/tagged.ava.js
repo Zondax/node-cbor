@@ -1,6 +1,7 @@
 'use strict'
 
 const test = require('ava')
+const bi = require('big-integer')
 const cbor = require(process.env.CBOR_PACKAGE || '../')
 const Buffer = cbor.encode(0).constructor
 
@@ -22,7 +23,7 @@ test('edges', t => {
 
 test('convert', t => {
   const tag = new cbor.Tagged(2, Buffer.from([2]))
-  t.deepEqual(tag.convert(), BigInt(2))
+  t.deepEqual(tag.convert(), bi(2))
 })
 
 test('tag 21', t => {

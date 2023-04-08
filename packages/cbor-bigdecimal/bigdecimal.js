@@ -1,6 +1,7 @@
 'use strict'
 
 const {BigNumber} = require('bignumber.js')
+const bi = require('big-integer')
 let cbor = null
 
 const MAXINT = new BigNumber('0x20000000000000')
@@ -14,7 +15,7 @@ function pushBigNumber(gen, obj) {
     return gen._pushInfinity(obj.isNegative() ? -Infinity : Infinity)
   }
   if (obj.isInteger()) {
-    return gen._pushJSBigint(BigInt(obj.toFixed()))
+    return gen._pushJSBigint(bi(obj.toFixed()))
   }
 
   // Section 3.4.4, decimal fraction
@@ -31,7 +32,7 @@ function pushBigNumber(gen, obj) {
   if (slide.abs().isLessThan(MAXINT)) {
     return gen._pushIntNum(slide.toNumber())
   }
-  return gen._pushJSBigint(BigInt(slide.toFixed()))
+  return gen._pushJSBigint(bi(slide.toFixed()))
 }
 
 // Decimal fraction; see Section 3.4.4
