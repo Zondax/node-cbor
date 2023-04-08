@@ -4,6 +4,7 @@ const cbor_src = process.env.CBOR_PACKAGE || '../'
 const cbor = require(cbor_src)
 const test = require('ava')
 const pEvent = require('p-event')
+const bi = require('big-integer')
 const util = require('util')
 const cases = require('./cases')
 const streams = require('./streams')
@@ -225,11 +226,11 @@ test('depth', async t => {
 
 test('typed arrays', t => {
   const buf = Buffer.from('c24720000000000000', 'hex')
-  t.is(cbor.decode(buf), 9007199254740992n)
+  t.is(cbor.decode(buf), bi(9007199254740992))
   const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.length)
-  t.is(cbor.decode(ab), 9007199254740992n)
-  t.is(cbor.decode(new Uint8Array(ab)), 9007199254740992n)
-  t.is(cbor.decode(new Uint8ClampedArray(ab)), 9007199254740992n)
+  t.is(cbor.decode(ab), bi(9007199254740992))
+  t.is(cbor.decode(new Uint8Array(ab)), bi(9007199254740992))
+  t.is(cbor.decode(new Uint8ClampedArray(ab)), bi(9007199254740992))
 
   // Beware endian-ness
   const u8b = new Uint8ClampedArray([0x61, 0x62])
