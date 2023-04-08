@@ -3,6 +3,7 @@
 const cbor = require(process.env.CBOR_PACKAGE || '../')
 const test = require('ava')
 const util = require('util')
+const BigInteger = require('big-integer')
 const fs = require('fs')
 const path = require('path')
 const Buffer = cbor.encode(0).constructor
@@ -46,7 +47,7 @@ use command \`git submodule update --init\` to load test-vectors`)
       const v = value.___VALUE___
       const f = Number.parseFloat(v)
       try {
-        const bi = BigInt(v)
+        const bi = BigInteger(v)
         if ((bi > Number.MAX_SAFE_INTEGER) || (bi < Number.MIN_SAFE_INTEGER)) {
           return bi
         }
